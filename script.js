@@ -129,6 +129,65 @@
   }
 
   /* ----------------------------------------------------------
+     Видео: запуск в кадре и кнопка паузы
+     ---------------------------------------------------------- */
+
+  const watchVideo = document.querySelector(".watch-video");
+  const videoToggle = document.querySelector(".video-toggle");
+  const videoToggleText = videoToggle
+    ? videoToggle.querySelector(".video-toggle-text")
+    : null;
+  let videoUserPaused = false;
+
+  function syncVideoButton() {
+    if (!watchVideo || !videoToggle) return;
+    const playing = !watchVideo.paused && !watchVideo.ended;
+    videoToggle.setAttribute("aria-pressed", playing ? "true" : "false");
+    if (videoToggleText) {
+      videoToggleText.textContent = playing ? "Пауза" : "Смотреть";
+    }
+  }
+
+  if (watchVideo) {
+    if (REDUCED && videoToggle) {
+      videoToggle.setAttribute("aria-pressed", "false");
+      if (videoToggleText) videoToggleText.textContent = "Смотреть";
+    }
+
+    watchVideo.addEventListener("play", syncVideoButton);
+    watchVideo.addEventListener("pause", syncVideoButton);
+
+    if (videoToggle) {
+      videoToggle.addEventListener("click", function () {
+        if (watchVideo.paused) {
+          videoUserPaused = false;
+          watchVideo.play().catch(function () {});
+        } else {
+          videoUserPaused = true;
+          watchVideo.pause();
+        }
+      });
+    }
+
+    if (!REDUCED && "IntersectionObserver" in window) {
+      const videoObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              if (!videoUserPaused) watchVideo.play().catch(function () {});
+            } else {
+              watchVideo.pause();
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      videoObserver.observe(watchVideo);
+    }
+  }
+
+  /* ----------------------------------------------------------
      Живой циферблат: стрелки и дата
      ---------------------------------------------------------- */
 
@@ -549,13 +608,19 @@
           trigger: ".hero",
           start: "top top",
           end: "bottom top",
-          scrub: 0.7
+          scrub: 0.6
         }
       })
-      .to(".hero-logo", { y: -70, opacity: 0.18, ease: "none" }, 0)
-      .to(".hero-sub", { y: -44, opacity: 0.2, ease: "none" }, 0)
-      .to(".watch-stage", { y: 70, scale: 0.94, ease: "none" }, 0)
-      .to(".hero-meta", { y: 26, opacity: 0, ease: "none" }, 0);
+      .to(".hero-logo", { y: -118, scale: 0.94, opacity: 0.08, ease: "none" }, 0)
+      .to(".hero-sub", { y: -82, opacity: 0.12, ease: "none" }, 0)
+      .to(
+        ".watch-stage",
+        { y: 132, scale: 0.86, rotation: 2.2, opacity: 0.9, ease: "none" },
+        0
+      )
+      .to(".watch-frame", { y: -28, rotation: -3.4, ease: "none" }, 0)
+      .to(".lume-btn", { y: 58, opacity: 0, ease: "none" }, 0)
+      .to(".hero-meta", { y: 44, opacity: 0, ease: "none" }, 0);
 
     /* Появление блоков */
     gsap.utils.toArray(".reveal-fade").forEach(function (el) {

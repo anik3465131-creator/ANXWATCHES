@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Megrim&family=Inter:wght@200;300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -23,7 +23,6 @@
     <nav class="nav" aria-label="Основная навигация">
       <a href="#movement">Механизм</a>
       <a href="#specs">Характеристики</a>
-      <a href="#series">Серия</a>
       <a href="#faq">FAQ</a>
     </nav>
   </div>
@@ -90,6 +89,29 @@
             <li class="dial-note"><span class="dial-note-title">Метки с люмом</span></li>
             <li class="dial-note"><span class="dial-note-title">Номер 01–20</span></li>
           </ul>
+        </div>
+      </div>
+
+      <div class="video-band reveal-up">
+        <video
+          class="watch-video"
+          src="Videos/anx-watch.mp4?v=1"
+          poster="images/video-poster.jpg"
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-label="Видео часов ANX WATCHES"
+        ></video>
+        <div class="video-overlay">
+          <div class="video-copy">
+            <p class="video-kicker">Видео</p>
+            <p class="video-title">ANX WATCHES в движении</p>
+          </div>
+          <button class="video-toggle" type="button" aria-pressed="true">
+            <span class="video-toggle-icon" aria-hidden="true"></span>
+            <span class="video-toggle-text">Пауза</span>
+          </button>
         </div>
       </div>
     </div>
@@ -220,83 +242,61 @@
         <h2 class="section-title">Характеристики</h2>
       </div>
 
-      <div class="table-wrap">
-        <dl class="data-table">
-          <div class="data-row">
-            <dt>Механизм</dt>
-            <dd>NH35, автоподзавод</dd>
-          </div>
-          <div class="data-row">
-            <dt>Водозащита</dt>
-            <dd><span class="mono">50 м</span> (5 ATM) — брызги и дождь, не для плавания</dd>
-          </div>
-          <div class="data-row">
-            <dt>Тираж</dt>
-            <dd><span class="mono">20</span> нумерованных экземпляров</dd>
-          </div>
-          <div class="data-row">
-            <dt>Размер корпуса</dt>
-            <dd class="muted">Уточняется</dd>
-          </div>
-          <div class="data-row">
-            <dt>Материал корпуса</dt>
-            <dd class="muted">Уточняется</dd>
-          </div>
-          <div class="data-row">
-            <dt>Стекло</dt>
-            <dd class="muted">Уточняется</dd>
-          </div>
-          <div class="data-row">
-            <dt>Ремешок</dt>
-            <dd class="muted">Уточняется</dd>
-          </div>
-        </dl>
-      </div>
-    </div>
-  </section>
+      <div class="specs-layout">
+        <div class="table-wrap">
+          <dl class="data-table">
+            <div class="data-row">
+              <dt>Механизм</dt>
+              <dd>NH35, автоподзавод</dd>
+            </div>
+            <div class="data-row">
+              <dt>Водозащита</dt>
+              <dd><span class="mono">50 м</span> (5 ATM) — брызги и дождь, не для плавания</dd>
+            </div>
+            <div class="data-row">
+              <dt>Тираж</dt>
+              <dd><span class="mono">20</span> нумерованных экземпляров</dd>
+            </div>
+            <div class="data-row">
+              <dt>Размер корпуса</dt>
+              <dd class="muted">Уточняется</dd>
+            </div>
+            <div class="data-row">
+              <dt>Материал корпуса</dt>
+              <dd class="muted">Уточняется</dd>
+            </div>
+            <div class="data-row">
+              <dt>Стекло</dt>
+              <dd class="muted">Уточняется</dd>
+            </div>
+            <div class="data-row">
+              <dt>Ремешок</dt>
+              <dd class="muted">Уточняется</dd>
+            </div>
+          </dl>
+        </div>
 
-  <section class="series section" id="series">
-    <div class="container">
-      <div class="section-head reveal-fade">
-        <p class="section-index">04</p>
-        <h2 class="section-title">Серия</h2>
+        <figure class="specs-photo reveal-up">
+          <div class="specs-photo-frame">
+            <img
+              src="images/watch-secondary.webp"
+              alt="ANX WATCHES — вид спереди: корпус, браслет и циферблат Crystal Titanium"
+              width="1000"
+              height="1548"
+              loading="lazy"
+              decoding="async"
+            >
+          </div>
+          <figcaption class="specs-photo-caption">Вид спереди · 20 нумерованных экземпляров</figcaption>
+        </figure>
       </div>
-
-      <div class="series-head reveal-up">
-        <p class="series-lead">Двадцать номеров. Каждый — один раз.</p>
-        <p class="series-status"><span class="dot" aria-hidden="true"></span>Свободно 20 из 20</p>
-      </div>
-      <div class="series-grid" id="seriesGrid">
-        <button type="button" class="cell" data-num="01"><span class="cell-num">01</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="02"><span class="cell-num">02</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="03"><span class="cell-num">03</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="04"><span class="cell-num">04</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="05"><span class="cell-num">05</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="06"><span class="cell-num">06</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="07"><span class="cell-num">07</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="08"><span class="cell-num">08</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="09"><span class="cell-num">09</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="10"><span class="cell-num">10</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="11"><span class="cell-num">11</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="12"><span class="cell-num">12</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="13"><span class="cell-num">13</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="14"><span class="cell-num">14</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="15"><span class="cell-num">15</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="16"><span class="cell-num">16</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="17"><span class="cell-num">17</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="18"><span class="cell-num">18</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="19"><span class="cell-num">19</span><span class="cell-status">свободен</span></button>
-        <button type="button" class="cell" data-num="20"><span class="cell-num">20</span><span class="cell-status">свободен</span></button>
-      </div>
-
-      <p class="series-note reveal-fade">Свободный номер открывает заявку. Занятый — отмечен.</p>
     </div>
   </section>
 
   <section class="order section" id="order">
     <div class="container">
       <div class="section-head reveal-fade">
-        <p class="section-index">05</p>
+        <p class="section-index">04</p>
         <h2 class="section-title">Как заказать</h2>
       </div>
 
@@ -304,7 +304,7 @@
         <li class="step">
           <span class="step-index">01</span>
           <h3 class="step-title">Выбери номер</h3>
-          <p class="step-text">В сетке серии отметь свободный номер от 01 до 20.</p>
+          <p class="step-text">Выбери свободный номер от 01 до 20 в форме заявки.</p>
         </li>
         <li class="step">
           <span class="step-index">02</span>
@@ -328,7 +328,7 @@
   <section class="faq section" id="faq">
     <div class="container">
       <div class="section-head reveal-fade">
-        <p class="section-index">06</p>
+        <p class="section-index">05</p>
         <h2 class="section-title">FAQ</h2>
       </div>
 
@@ -458,6 +458,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-<script src="script.js?v=3" defer></script>
+<script src="script.js?v=4" defer></script>
 </body>
 </html>

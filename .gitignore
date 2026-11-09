@@ -4,3 +4,7 @@ skills-lock.json
 AGENTS.md
 Thumbs.db
 .DS_Store
+
+# Только опубликованное видео; исходный файл с кириллическим именем не дублируем
+Videos/*
+!Videos/anx-watch.mp4
