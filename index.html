@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Megrim&family=Inter:wght@200;300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -86,9 +86,9 @@
           <p class="dial-text reveal-up">Двадцать нумерованных экземпляров. Номер закрепляется за владельцем и больше не возвращается в тираж.</p>
 
           <ul class="dial-notes">
-            <li class="dial-note reveal-up"><span class="dial-note-title">Текстура</span></li>
-            <li class="dial-note reveal-up"><span class="dial-note-title">Метки с люмом</span></li>
-            <li class="dial-note reveal-up"><span class="dial-note-title">Номер 01–20</span></li>
+            <li class="dial-note"><span class="dial-note-title">Текстура</span></li>
+            <li class="dial-note"><span class="dial-note-title">Метки с люмом</span></li>
+            <li class="dial-note"><span class="dial-note-title">Номер 01–20</span></li>
           </ul>
         </div>
       </div>
@@ -102,7 +102,9 @@
         <h2 class="section-title">Механизм NH35</h2>
       </div>
 
-      <div class="mv reveal-up" id="movementMap">
+      <p class="mv-intro reveal-fade">NH35 — автоматический калибр с центральной секундной стрелкой и датой. Восемь узлов со стороны автоподзавода: выберите любой, чтобы понять, за что он отвечает.</p>
+
+      <div class="mv" id="movementMap">
         <div class="mv-figure">
           <img
             class="mv-img"
@@ -115,43 +117,70 @@
           >
           <button class="mv-dot" type="button" data-part="rotor" style="--x: 74.4%; --y: 48.1%" aria-label="Ротор автоподзавода"><span>01</span></button>
           <button class="mv-dot" type="button" data-part="balance" style="--x: 26.7%; --y: 44.5%" aria-label="Балансовое колесо"><span>02</span></button>
-          <button class="mv-dot" type="button" data-part="barrel" style="--x: 54.5%; --y: 73.3%" aria-label="Заводной барабан"><span>03</span></button>
-          <button class="mv-dot" type="button" data-part="jewels" style="--x: 48.1%; --y: 46.9%" aria-label="Камни"><span>04</span></button>
+          <button class="mv-dot" type="button" data-part="regulator" style="--x: 20%; --y: 37.3%" aria-label="Регулятор хода"><span>03</span></button>
+          <button class="mv-dot" type="button" data-part="barrel" style="--x: 54.5%; --y: 73.3%" aria-label="Заводной барабан"><span>04</span></button>
+          <button class="mv-dot" type="button" data-part="gears" style="--x: 43%; --y: 86.5%" aria-label="Зубчатая передача"><span>05</span></button>
+          <button class="mv-dot" type="button" data-part="jewels" style="--x: 48.1%; --y: 46.9%" aria-label="Камни"><span>06</span></button>
+          <button class="mv-dot" type="button" data-part="bridges" style="--x: 38%; --y: 62%" aria-label="Мосты и платина"><span>07</span></button>
+          <button class="mv-dot" type="button" data-part="winding" style="--x: 27%; --y: 29%" aria-label="Механизм автоподзавода"><span>08</span></button>
         </div>
 
         <div class="mv-panel">
-          <p class="mv-hint">Наведите курсор или нажмите на точку</p>
-          <ul class="mv-list">
-            <li>
-              <button class="mv-item" type="button" data-part="rotor">
-                <span class="mv-num">01</span>
-                <span class="mv-name">Ротор автоподзавода</span>
-              </button>
-            </li>
-            <li>
-              <button class="mv-item" type="button" data-part="balance">
-                <span class="mv-num">02</span>
-                <span class="mv-name">Балансовое колесо</span>
-              </button>
-            </li>
-            <li>
-              <button class="mv-item" type="button" data-part="barrel">
-                <span class="mv-num">03</span>
-                <span class="mv-name">Заводной барабан</span>
-              </button>
-            </li>
-            <li>
-              <button class="mv-item" type="button" data-part="jewels">
-                <span class="mv-num">04</span>
-                <span class="mv-name">Камни</span>
-              </button>
-            </li>
-          </ul>
-          <p class="mv-detail" id="mvDetail" aria-live="polite">Выберите элемент механизма.</p>
+          <p class="mv-hint">Выберите узел механизма</p>
+          <div class="mv-grid">
+            <button class="mv-item" type="button" data-part="rotor">
+              <span class="mv-num">01</span>
+              <span class="mv-name">Ротор автоподзавода</span>
+              <span class="mv-tag">автоподзавод</span>
+            </button>
+            <button class="mv-item" type="button" data-part="balance">
+              <span class="mv-num">02</span>
+              <span class="mv-name">Балансовое колесо</span>
+              <span class="mv-tag">21 600 пк/ч</span>
+            </button>
+            <button class="mv-item" type="button" data-part="regulator">
+              <span class="mv-num">03</span>
+              <span class="mv-name">Регулятор хода</span>
+              <span class="mv-tag">точность</span>
+            </button>
+            <button class="mv-item" type="button" data-part="barrel">
+              <span class="mv-num">04</span>
+              <span class="mv-name">Заводной барабан</span>
+              <span class="mv-tag">запас ~41 ч</span>
+            </button>
+            <button class="mv-item" type="button" data-part="gears">
+              <span class="mv-num">05</span>
+              <span class="mv-name">Зубчатая передача</span>
+              <span class="mv-tag">передача момента</span>
+            </button>
+            <button class="mv-item" type="button" data-part="jewels">
+              <span class="mv-num">06</span>
+              <span class="mv-name">Камни</span>
+              <span class="mv-tag">24 рубина</span>
+            </button>
+            <button class="mv-item" type="button" data-part="bridges">
+              <span class="mv-num">07</span>
+              <span class="mv-name">Мосты и платина</span>
+              <span class="mv-tag">основа механизма</span>
+            </button>
+            <button class="mv-item" type="button" data-part="winding">
+              <span class="mv-num">08</span>
+              <span class="mv-name">Механизм автоподзавода</span>
+              <span class="mv-tag">реверсивные колёса</span>
+            </button>
+          </div>
+
+          <div class="mv-card" aria-live="polite">
+            <span class="mv-card-index" id="mvCardIndex">—</span>
+            <div class="mv-card-body">
+              <p class="mv-card-title" id="mvCardTitle">Устройство механизма</p>
+              <p class="mv-card-text" id="mvDetail">Наведите на точку на механизме или выберите узел из списка.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="table-wrap reveal-up">
+      <div class="table-wrap">
         <dl class="data-table">
           <div class="data-row">
             <dt>Тип</dt>
@@ -191,7 +220,7 @@
         <h2 class="section-title">Характеристики</h2>
       </div>
 
-      <div class="table-wrap reveal-up">
+      <div class="table-wrap">
         <dl class="data-table">
           <div class="data-row">
             <dt>Механизм</dt>
@@ -272,17 +301,17 @@
       </div>
 
       <ol class="steps">
-        <li class="step reveal-up">
+        <li class="step">
           <span class="step-index">01</span>
           <h3 class="step-title">Выбери номер</h3>
           <p class="step-text">В сетке серии отметь свободный номер от 01 до 20.</p>
         </li>
-        <li class="step reveal-up">
+        <li class="step">
           <span class="step-index">02</span>
           <h3 class="step-title">Нажми «Заказать»</h3>
           <p class="step-text">Одна кнопка: номер, имя и контакт для связи.</p>
         </li>
-        <li class="step reveal-up">
+        <li class="step">
           <span class="step-index">03</span>
           <h3 class="step-title">Согласуй оплату и доставку</h3>
           <p class="step-text">Способы оплаты и условия доставки — уточняются.</p>
@@ -303,7 +332,7 @@
         <h2 class="section-title">FAQ</h2>
       </div>
 
-      <div class="faq-list reveal-up">
+      <div class="faq-list">
         <details class="faq-item">
           <summary>
             <span class="faq-q">Есть ли гарантия?</span>
@@ -429,6 +458,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-<script src="script.js?v=2" defer></script>
+<script src="script.js?v=3" defer></script>
 </body>
 </html>

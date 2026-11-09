@@ -261,25 +261,70 @@
 
   if (mv) {
     const mvDetail = document.getElementById("mvDetail");
+    const mvCard = mv.querySelector(".mv-card");
+    const mvCardIndex = document.getElementById("mvCardIndex");
+    const mvCardTitle = document.getElementById("mvCardTitle");
     const mvDots = Array.from(mv.querySelectorAll(".mv-dot"));
     const mvItems = Array.from(mv.querySelectorAll(".mv-item"));
 
     const MV_PARTS = {
-      rotor:
-        "Полулунный груз вращается при движении руки и подзаводит пружину. Предусмотрен и ручной завод.",
-      balance:
-        "Балансовое колесо задаёт темп хода: 21 600 полуколебаний в час.",
-      barrel:
-        "Заводной барабан хранит энергию пружины. Запас хода — около 41 часа.",
-      jewels:
-        "24 рубиновых камня снижают трение в опорах и узлах механизма."
+      rotor: {
+        title: "Ротор автоподзавода",
+        text:
+          "Полулунный груз на подшипнике вращается от движения руки и через реверсивные колёса подзаводит пружину. Ручной завод тоже предусмотрен."
+      },
+      balance: {
+        title: "Балансовое колесо",
+        text:
+          "Задаёт темп хода: 21 600 полуколебаний в час, или 3 Гц. От стабильности его колебаний зависит точность часов."
+      },
+      regulator: {
+        title: "Регулятор хода",
+        text:
+          "Подвижный рычаг у баланса меняет рабочую длину волоска. Им выставляют точность хода при сборке и обслуживании."
+      },
+      barrel: {
+        title: "Заводной барабан",
+        text:
+          "Хранит энергию заводной пружины — запаса хода около 41 часа. Через зубчатый венец передаёт момент дальше по механизму."
+      },
+      gears: {
+        title: "Зубчатая передача",
+        text:
+          "Каскад колёс передаёт усилие от барабана к узлу стрелок и повышает скорость вращения до нужной."
+      },
+      jewels: {
+        title: "Камни",
+        text:
+          "24 синтетических рубиновых камня стоят в опорах осей и узлах трения: снижают износ и помогают сохранять стабильность хода."
+      },
+      bridges: {
+        title: "Мосты и платина",
+        text:
+          "Платина — основа, на которой собран механизм. Мосты фиксируют оси и узлы; на фото видна их холодная шлифованная поверхность."
+      },
+      winding: {
+        title: "Механизм автоподзавода",
+        text:
+          "Реверсивные колёса преобразуют вращение ротора в подзавод пружины в обе стороны — механизм работает при любом направлении движения."
+      }
     };
 
-    const MV_DEFAULT = "Выберите элемент механизма.";
+    const MV_DEFAULT = {
+      title: "Устройство механизма",
+      text: "Наведите на точку на механизме или выберите узел из списка."
+    };
+
     let mvPinned = null;
+    let mvShown = null;
+    const hasMotion = typeof window.gsap !== "undefined" && !REDUCED;
 
     function mvApply(part) {
+      const data = part ? MV_PARTS[part] : MV_DEFAULT;
+      if (!data) return;
+
       mv.classList.toggle("has-active", Boolean(part));
+      mvCard.classList.toggle("has-part", Boolean(part));
 
       mvDots.concat(mvItems).forEach(function (el) {
         const match = Boolean(part) && el.getAttribute("data-part") === part;
@@ -287,9 +332,30 @@
         el.setAttribute("aria-pressed", match ? "true" : "false");
       });
 
-      if (mvDetail) {
-        mvDetail.classList.toggle("is-active", Boolean(part));
-        mvDetail.textContent = part ? MV_PARTS[part] : MV_DEFAULT;
+      if (mvShown === part) return;
+      mvShown = part;
+
+      mvCardIndex.textContent = part
+        ? String(Array.from(mvItems).findIndex(function (el) {
+            return el.getAttribute("data-part") === part;
+          }) + 1).padStart(2, "0")
+        : "—";
+      mvCardTitle.textContent = data.title;
+      mvDetail.textContent = data.text;
+
+      if (hasMotion && part) {
+        window.gsap.fromTo(
+          [mvCardIndex, mvCardTitle, mvDetail],
+          { opacity: 0, y: 8 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            stagger: 0.045,
+            ease: "power3.out",
+            overwrite: true
+          }
+        );
       }
     }
 
@@ -418,10 +484,79 @@
   }
 
   /* ----------------------------------------------------------
+     Лёгкий 3D-наклон часов за курсором
+     ---------------------------------------------------------- */
+
+  if (watchFrame && FINE_POINTER) {
+    const hero = document.querySelector(".hero");
+
+    if (hero) {
+      gsap.set(watchFrame, {
+        transformPerspective: 1300,
+        transformOrigin: "50% 58%"
+      });
+
+      const tiltX = gsap.quickTo(watchFrame, "rotationX", {
+        duration: 0.9,
+        ease: "power3"
+      });
+      const tiltY = gsap.quickTo(watchFrame, "rotationY", {
+        duration: 0.9,
+        ease: "power3"
+      });
+
+      hero.addEventListener("mousemove", function (event) {
+        const nx = event.clientX / window.innerWidth - 0.5;
+        const ny = event.clientY / window.innerHeight - 0.5;
+        tiltY(nx * 7);
+        tiltX(-ny * 5);
+      });
+
+      hero.addEventListener("mouseleave", function () {
+        tiltX(0);
+        tiltY(0);
+      });
+    }
+  }
+
+  /* ----------------------------------------------------------
      Скролл-анимации
      ---------------------------------------------------------- */
 
   function setupScrollMotion() {
+    /* Мягкое свечение секций, дышит при скролле */
+    gsap.utils.toArray(".section").forEach(function (sec) {
+      gsap.fromTo(
+        sec,
+        { "--aura": 0.14 },
+        {
+          "--aura": 0.68,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sec,
+            start: "top 85%",
+            end: "bottom 15%",
+            scrub: true
+          }
+        }
+      );
+    });
+
+    /* Параллакс героя */
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.7
+        }
+      })
+      .to(".hero-logo", { y: -70, opacity: 0.18, ease: "none" }, 0)
+      .to(".hero-sub", { y: -44, opacity: 0.2, ease: "none" }, 0)
+      .to(".watch-stage", { y: 70, scale: 0.94, ease: "none" }, 0)
+      .to(".hero-meta", { y: 26, opacity: 0, ease: "none" }, 0);
+
     /* Появление блоков */
     gsap.utils.toArray(".reveal-fade").forEach(function (el) {
       if (el.closest(".hero")) return;
@@ -455,6 +590,102 @@
         scrollTrigger: { trigger: el, start: "top 90%", once: true }
       });
     });
+
+    /* Строки характеристик — каскадом */
+    gsap.utils.toArray(".data-table").forEach(function (table) {
+      gsap.from(table.querySelectorAll(".data-row"), {
+        opacity: 0,
+        x: -18,
+        duration: 0.7,
+        stagger: 0.06,
+        ease: "power3.out",
+        scrollTrigger: { trigger: table, start: "top 92%", once: true }
+      });
+    });
+
+    /* Шаги заказа */
+    if (document.querySelector(".steps")) {
+      gsap.from(".step", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".steps", start: "top 90%", once: true }
+      });
+    }
+
+    /* FAQ */
+    if (document.querySelector(".faq-list")) {
+      gsap.from(".faq-item", {
+        opacity: 0,
+        y: 20,
+        duration: 0.65,
+        stagger: 0.07,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".faq-list", start: "top 92%", once: true }
+      });
+    }
+
+    /* Заметки на циферблате */
+    if (document.querySelector(".dial-notes")) {
+      gsap.from(".dial-note", {
+        opacity: 0,
+        y: 16,
+        duration: 0.65,
+        stagger: 0.08,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".dial-notes", start: "top 94%", once: true }
+      });
+    }
+
+    /* Карта механизма */
+    if (mv) {
+      gsap.from(".mv-figure", {
+        opacity: 0,
+        scale: 0.94,
+        rotation: -1.2,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".mv", start: "top 88%", once: true }
+      });
+
+      gsap.from(".mv-panel", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".mv", start: "top 85%", once: true }
+      });
+
+      gsap.from(".mv-dot", {
+        opacity: 0,
+        duration: 0.55,
+        stagger: 0.06,
+        ease: "power2.out",
+        scrollTrigger: { trigger: ".mv", start: "top 78%", once: true }
+      });
+
+      gsap.from(".mv-item", {
+        opacity: 0,
+        y: 18,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".mv-grid", start: "top 92%", once: true }
+      });
+
+      gsap.to(".mv-figure", {
+        y: -26,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".mv",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
 
     /* Сетка 20 */
     if (cells.length) {
