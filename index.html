@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#050709">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Megrim&family=Inter:wght@200;300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -36,6 +36,11 @@
       <p class="hero-sub reveal-fade">Лимитированная серия · 20 экземпляров</p>
 
       <div class="watch-stage">
+        <p class="hero-slogan" aria-hidden="true">
+          <span class="hero-slogan-line">Crystal</span>
+          <span class="hero-slogan-line">Titanium</span>
+        </p>
+
         <div class="watch-frame">
           <img class="watch-img watch-day" src="images/main-watch.png" alt="Часы ANX WATCHES с фактурным циферблатом" width="2400" height="2013">
           <img class="watch-img watch-night" src="images/main-watch-lume.png?v=2" alt="" aria-hidden="true" width="2400" height="2013">
@@ -43,17 +48,19 @@
             <span class="watch-glare-dot"></span>
           </span>
         </div>
+      </div>
 
-        <p class="hero-slogan" aria-hidden="true">
-          <span class="hero-slogan-tilt">
-            <span class="hero-slogan-text">ЛЁД · СВЕТ · ХОД</span>
-          </span>
-        </p>
+      <p class="hero-lead reveal-fade">Кристаллический циферблат, механизм NH35 с автоподзаводом и двадцать нумерованных экземпляров. Холод, который держит время.</p>
 
-        <button class="lume-btn magnetic" type="button" aria-pressed="false" aria-label="Включить подсветку LUME">
-          <span class="lume-dot" aria-hidden="true"></span>
-          <span>LUME</span>
+      <div class="hero-actions reveal-fade">
+        <button class="btn hero-cta magnetic" type="button" data-open-order>
+          <span>Выбрать номер</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
         </button>
+        <a class="hero-link" href="#dial">
+          <span>Смотреть часы</span>
+          <span class="hero-link-arrow" aria-hidden="true">↓</span>
+        </a>
       </div>
     </div>
 
@@ -61,6 +68,10 @@
       <span>NH35 · автоподзавод</span>
       <span class="hero-meta-line" aria-hidden="true"></span>
       <span>Водозащита 50 м</span>
+      <button class="lume-btn magnetic" type="button" aria-pressed="false" aria-label="Включить подсветку LUME">
+        <span class="lume-dot" aria-hidden="true"></span>
+        <span>LUME</span>
+      </button>
       <span class="hero-meta-index">01 / 20</span>
     </div>
   </section>
@@ -388,12 +399,19 @@
       <p class="footer-logo">ANX WATCHES</p>
 
       <div class="footer-contact">
-        <p class="footer-label">Telegram</p>
-        <a class="footer-link" href="https://t.me/ТВОЙ_НИК" target="_blank" rel="noopener">
-          t.me/ТВОЙ_НИК
+        <p class="footer-label">Заявка</p>
+        <button class="footer-link footer-order" type="button" data-open-order>
+          Оставить заявку
           <span class="footer-arrow" aria-hidden="true">↗</span>
-        </a>
+        </button>
+        <p class="footer-contact-note">Telegram и e-mail — уточняются</p>
       </div>
+    </div>
+
+    <div class="footer-legal">
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="offer.html">Публичная оферта</a>
+      <span class="footer-legal-note">Продавец — уточняется</span>
     </div>
 
     <div class="footer-bottom">
@@ -413,55 +431,72 @@
       <button type="button" class="order-close" data-close-order aria-label="Закрыть">×</button>
     </div>
 
-    <label class="field">
-      <span class="field-label">Номер</span>
-      <select class="field-input" name="number" id="orderNumber">
-        <option value="01">01</option>
-        <option value="02">02</option>
-        <option value="03">03</option>
-        <option value="04">04</option>
-        <option value="05">05</option>
-        <option value="06">06</option>
-        <option value="07">07</option>
-        <option value="08">08</option>
-        <option value="09">09</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-      </select>
-    </label>
+    <div class="order-body">
+      <label class="field">
+        <span class="field-label">Номер</span>
+        <select class="field-input" name="number" id="orderNumber">
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+          <option value="09">09</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+          <option value="17">17</option>
+          <option value="18">18</option>
+          <option value="19">19</option>
+          <option value="20">20</option>
+        </select>
+      </label>
 
-    <label class="field">
-      <span class="field-label">Имя</span>
-      <input class="field-input" type="text" name="name" id="orderName" autocomplete="name" required>
-    </label>
+      <label class="field">
+        <span class="field-label">Имя</span>
+        <input class="field-input" type="text" name="name" id="orderName" autocomplete="name" required>
+      </label>
 
-    <label class="field">
-      <span class="field-label">Телефон или почта</span>
-      <input class="field-input" type="text" name="contact" id="orderContact" autocomplete="email" required>
-    </label>
+      <label class="field">
+        <span class="field-label">Телефон или почта</span>
+        <input class="field-input" type="text" name="contact" id="orderContact" autocomplete="email" required>
+      </label>
 
-    <p class="order-note">Оплата и доставка — уточняются.</p>
+      <label class="field-check">
+        <input type="checkbox" name="consent" id="orderConsent" required>
+        <span>Согласен с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a> и <a href="offer.html" target="_blank" rel="noopener">условиями оферты</a></span>
+      </label>
 
-    <button class="btn order-submit" type="submit">
-      <span>Отправить заявку</span>
-      <span class="btn-arrow" aria-hidden="true">→</span>
-    </button>
+      <p class="order-note">Оплата и доставка — уточняются.</p>
 
-    <p class="form-status" id="orderStatus" role="status" aria-live="polite"></p>
+      <button class="btn order-submit" type="submit">
+        <span>Отправить заявку</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <p class="form-status" id="orderStatus" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="order-success" id="orderSuccess" hidden>
+      <p class="order-kicker">Заявка принята</p>
+      <h2 class="order-title">Номер <span id="successNumber">01</span></h2>
+      <p class="order-text">Заявка сохранена. Мы свяжемся с вами по указанному контакту, чтобы согласовать оплату и доставку.</p>
+      <button class="btn order-submit" type="button" data-close-order>
+        <span>Хорошо</span>
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
   </form>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-<script src="script.js?v=5" defer></script>
+<script src="script.js?v=6" defer></script>
 </body>
 </html>

@@ -233,20 +233,46 @@
      Заказ: одна кнопка и форма
      ---------------------------------------------------------- */
 
-  /* Замените на реальный адрес — заявки уходят письмом */
-  const ORDER_EMAIL = "order@anxwatches.example";
+  const ORDER_STORAGE_KEY = "anx-requests";
 
   const orderDialog = document.getElementById("orderDialog");
   const orderForm = document.getElementById("orderForm");
+  const orderBody = document.querySelector(".order-body");
+  const orderSuccess = document.getElementById("orderSuccess");
+  const successNumber = document.getElementById("successNumber");
   const orderNumber = document.getElementById("orderNumber");
   const orderName = document.getElementById("orderName");
   const orderContact = document.getElementById("orderContact");
+  const orderConsent = document.getElementById("orderConsent");
   const orderStatus = document.getElementById("orderStatus");
+
+  function resetOrderView() {
+    if (orderStatus) orderStatus.textContent = "";
+    if (orderBody) orderBody.hidden = false;
+    if (orderSuccess) orderSuccess.hidden = true;
+  }
+
+  function saveRequest(request) {
+    let list = [];
+    try {
+      const raw = window.localStorage.getItem(ORDER_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(parsed)) list = parsed;
+    } catch (error) {
+      list = [];
+    }
+    list.push(request);
+    try {
+      window.localStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(list));
+    } catch (error) {
+      /* хранилище недоступно — заявка всё равно показывается на экране */
+    }
+  }
 
   function openOrder(number) {
     if (!orderDialog) return;
+    resetOrderView();
     if (number && orderNumber) orderNumber.value = number;
-    if (orderStatus) orderStatus.textContent = "";
 
     if (typeof orderDialog.showModal === "function") {
       if (!orderDialog.open) orderDialog.showModal();
@@ -284,33 +310,37 @@
         orderDialog.close();
       });
     });
+
+    orderDialog.addEventListener("close", resetOrderView);
   }
 
   if (orderForm) {
     orderForm.addEventListener("submit", function (event) {
       event.preventDefault();
       if (!orderForm.reportValidity()) return;
-
-      const number = orderNumber ? orderNumber.value : "";
-      const name = orderName ? orderName.value.trim() : "";
-      const contact = orderContact ? orderContact.value.trim() : "";
-
-      const subject = "Заказ ANX WATCHES — №" + number;
-      const body =
-        "Номер: " + number +
-        "\nИмя: " + name +
-        "\nКонтакт: " + contact;
-
-      window.location.href =
-        "mailto:" + ORDER_EMAIL +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      if (orderStatus) {
-        orderStatus.textContent =
-          "Открываем почтовое приложение. Если оно не открылось — напишите на " +
-          ORDER_EMAIL + ".";
+      if (orderConsent && !orderConsent.checked) {
+        if (orderStatus) {
+          orderStatus.textContent =
+            "Отметьте согласие с политикой и офертой, чтобы отправить заявку.";
+        }
+        orderConsent.focus();
+        return;
       }
+
+      const request = {
+        number: orderNumber ? orderNumber.value : "",
+        name: orderName ? orderName.value.trim() : "",
+        contact: orderContact ? orderContact.value.trim() : "",
+        createdAt: new Date().toISOString()
+      };
+
+      saveRequest(request);
+
+      if (successNumber) successNumber.textContent = request.number || "—";
+      if (orderBody) orderBody.hidden = true;
+      if (orderSuccess) orderSuccess.hidden = false;
+      if (orderStatus) orderStatus.textContent = "";
+      orderForm.reset();
     });
   }
 
@@ -493,9 +523,10 @@
     .from(".hero-sub", { opacity: 0, y: 10, duration: 0.8 }, 0.7)
     .fromTo(
       ".hero-slogan",
-      { xPercent: -50, x: 150, opacity: 0 },
+      { xPercent: -50, yPercent: -50, x: 160, opacity: 0 },
       {
         xPercent: -50,
+        yPercent: -50,
         x: 0,
         opacity: 1,
         duration: 1.5,
@@ -504,8 +535,9 @@
       0.9
     )
     .from(".watch-frame", { opacity: 0, duration: 1.2, ease: "power2.out" }, 0.5)
-    .from(".lume-btn", { opacity: 0, scale: 0.7, duration: 0.6 }, 1.1)
-    .from(".hero-meta", { opacity: 0, y: 10, duration: 0.8 }, 1.15);
+    .from(".hero-lead", { opacity: 0, y: 14, duration: 0.9 }, 1.05)
+    .from(".hero-actions", { opacity: 0, y: 14, duration: 0.9 }, 1.2)
+    .from(".hero-meta", { opacity: 0, y: 10, duration: 0.8 }, 1.3);
 
   /* ----------------------------------------------------------
      Блик по часам: следует за курсором, обрезан силуэтом
@@ -593,7 +625,8 @@
       .to(".hero-sub", { y: -82, opacity: 0.12, ease: "none" }, 0)
       .to(".watch-stage", { y: 96, opacity: 0.9, ease: "none" }, 0)
       .to(".hero-slogan", { y: -74, opacity: 0.06, ease: "none" }, 0)
-      .to(".lume-btn", { y: 58, opacity: 0, ease: "none" }, 0)
+      .to(".hero-lead", { y: 30, opacity: 0.1, ease: "none" }, 0)
+      .to(".hero-actions", { y: 30, opacity: 0, ease: "none" }, 0)
       .to(".hero-meta", { y: 44, opacity: 0, ease: "none" }, 0);
 
     /* Появление блоков */

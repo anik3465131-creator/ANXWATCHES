@@ -18,8 +18,8 @@
   --max: 1360px;
 
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "Space Mono", "Courier New", monospace;
-  --font-logo: "Megrim", cursive;
+  --font-mono: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-logo: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -44,6 +44,7 @@ body {
   font-weight: 300;
   font-size: 16px;
   line-height: 1.5;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   transition: background-color 0.8s var(--ease), color 0.8s var(--ease);
@@ -118,8 +119,9 @@ h1, h2, p {
 .logo {
   font-family: var(--font-logo);
   font-size: clamp(18px, 2vw, 22px);
+  font-weight: 300;
   line-height: 1;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.2em;
   color: var(--ice-light);
   white-space: nowrap;
   transition: color 0.8s var(--ease), text-shadow 0.8s var(--ease);
@@ -228,7 +230,7 @@ h1, h2, p {
 .hero-logo {
   font-family: var(--font-logo);
   font-size: clamp(30px, 7vw, 96px);
-  font-weight: 400;
+  font-weight: 200;
   line-height: 1;
   letter-spacing: 0.16em;
   text-indent: 0.16em;
@@ -296,6 +298,7 @@ h1, h2, p {
 
 .watch-frame {
   position: relative;
+  z-index: 1;
   width: min(92vw, 75vh, 820px);
   aspect-ratio: 2400 / 2013;
 }
@@ -1021,8 +1024,9 @@ body.lume .mv-figure::before {
 .footer-logo {
   font-family: var(--font-logo);
   font-size: clamp(30px, 4.4vw, 58px);
+  font-weight: 200;
   line-height: 1;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.14em;
   color: var(--ice-light);
   transition: color 0.8s var(--ease), text-shadow 0.8s var(--ease);
 }
@@ -2089,37 +2093,37 @@ body.lume .form-status {
 }
 
 .logo {
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(17px, 1.9vw, 22px);
 }
 
 .nav a {
-  font-size: 13px;
-  letter-spacing: 0.12em;
+  font-size: 12px;
+  letter-spacing: 0.16em;
 }
 
 /* Hero */
 .hero {
-  padding-top: clamp(104px, 11vh, 132px);
+  padding-top: clamp(104px, 10.5vh, 128px);
 }
 
 .hero-logo {
-  font-size: clamp(34px, 9.6vw, 124px);
-  letter-spacing: 0.11em;
-  text-indent: 0.11em;
+  font-size: clamp(34px, 10vw, 132px);
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
 }
 
 .hero-sub {
-  font-size: 13px;
-  letter-spacing: 0.18em;
+  font-size: 12px;
+  letter-spacing: 0.2em;
 }
 
 .hero-meta {
-  font-size: 12px;
+  font-size: 10.5px;
   letter-spacing: 0.14em;
 }
 
 .watch-frame {
-  width: min(88vw, 62vh, 760px);
+  width: min(88vw, 54vh, 700px);
 }
 
 .btn {
@@ -2514,34 +2518,34 @@ body.lume .form-status {
 .hero-slogan {
   position: absolute;
   left: 50%;
-  top: 45%;
-  z-index: 4;
+  top: 50%;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
-  transform: translateX(-50%);
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.hero-slogan-tilt {
-  display: block;
-  transform: rotate(-5deg);
-}
-
-.hero-slogan-text {
-  display: block;
+  transform: translate(-50%, -50%);
   font-family: var(--font-logo);
-  font-size: clamp(32px, 8vw, 140px);
-  line-height: 0.9;
-  letter-spacing: 0.015em;
-  color: transparent;
-  -webkit-text-stroke: 1.2px rgba(226, 242, 245, 0.62);
-  text-shadow: 0 14px 34px rgba(5, 7, 9, 0.45);
-  transition: -webkit-text-stroke-color 0.8s var(--ease);
+  font-weight: 200;
+  font-size: clamp(62px, 12vw, 180px);
+  line-height: 0.84;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(226, 242, 245, 0.15);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.8s var(--ease);
 }
 
-body.lume .hero-slogan-text {
-  -webkit-text-stroke-color: var(--lume);
-  text-shadow: 0 0 26px rgba(138, 240, 255, 0.25);
+.hero-slogan-line {
+  display: block;
+  text-indent: 0.07em;
+}
+
+body.lume .hero-slogan {
+  color: rgba(166, 255, 94, 0.16);
 }
 
 /* Секундная стрелка: 21 600 пк/ч = 6 шагов в секунду */
@@ -2550,18 +2554,317 @@ body.lume .hero-slogan-text {
 }
 
 @media (max-width: 900px) {
-  .hero-slogan-text {
-    font-size: clamp(30px, 8.8vw, 96px);
+  .hero-slogan {
+    font-size: clamp(58px, 14vw, 130px);
   }
 }
 
 @media (max-width: 600px) {
   .hero-slogan {
-    top: 43%;
+    font-size: clamp(48px, 16vw, 100px);
+    letter-spacing: 0.04em;
+    color: rgba(226, 242, 245, 0.17);
   }
 
-  .hero-slogan-text {
-    font-size: clamp(26px, 9vw, 48px);
-    -webkit-text-stroke-width: 1px;
+  .hero-slogan-line {
+    text-indent: 0.04em;
+  }
+}
+
+/* ============================================================
+   v6 — one typeface, filled hero, legal pages
+   ============================================================ */
+
+.hero-lead {
+  max-width: 640px;
+  margin-top: clamp(14px, 2vh, 22px);
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.65;
+  color: rgba(226, 242, 245, 0.72);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 38px);
+  margin-top: clamp(20px, 3vh, 30px);
+}
+
+.hero-cta {
+  margin-top: 0;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ice);
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.hero-link:hover {
+  color: #fff;
+  border-bottom-color: var(--lume);
+}
+
+.hero-link-arrow {
+  font-size: 12px;
+  line-height: 1;
+  transition: transform 0.4s var(--ease);
+}
+
+.hero-link:hover .hero-link-arrow {
+  transform: translateY(3px);
+}
+
+/* LUME inside the meta bar */
+.hero-meta .lume-btn {
+  flex-direction: row;
+  width: auto;
+  height: 30px;
+  margin-top: 0;
+  padding: 0 12px;
+  gap: 7px;
+  border-radius: 999px;
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+}
+
+.hero-meta .lume-dot {
+  width: 3px;
+  height: 3px;
+}
+
+/* Footer contact + legal */
+.footer-order {
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  text-align: right;
+}
+
+.footer-order:hover {
+  border-bottom-color: var(--lume);
+}
+
+.footer-contact-note {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px clamp(18px, 3vw, 34px);
+  padding: 18px 0;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.footer-legal a {
+  border-bottom: 1px solid transparent;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.footer-legal a:hover {
+  color: var(--ice-light);
+  border-bottom-color: var(--line);
+}
+
+.footer-legal-note {
+  margin-left: auto;
+  color: rgba(111, 151, 163, 0.75);
+}
+
+/* Order form */
+.field-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--steel);
+  cursor: pointer;
+}
+
+.field-check input {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin: 2px 0 0;
+  accent-color: var(--lume);
+}
+
+.field-check a {
+  color: var(--ice);
+  border-bottom: 1px solid var(--line);
+}
+
+.field-check a:hover {
+  color: #fff;
+  border-bottom-color: var(--lume);
+}
+
+.order-success {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.order-success[hidden] {
+  display: none;
+}
+
+.order-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--steel);
+}
+
+/* Legal pages */
+.legal {
+  padding-top: clamp(118px, 16vh, 168px);
+  padding-bottom: clamp(60px, 10vh, 120px);
+}
+
+.legal-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.legal-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.legal-title {
+  margin-top: 14px;
+  font-size: clamp(30px, 4.6vw, 54px);
+  font-weight: 200;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ice-light);
+}
+
+.legal-date {
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.legal-body {
+  margin-top: clamp(28px, 5vh, 46px);
+  border-top: 1px solid var(--line-soft);
+}
+
+.legal-body h2 {
+  margin: 30px 0 10px;
+  font-size: clamp(17px, 1.6vw, 21px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ice-light);
+}
+
+.legal-body p,
+.legal-body li {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(226, 242, 245, 0.72);
+}
+
+.legal-body p + p {
+  margin-top: 10px;
+}
+
+.legal-body ul {
+  margin: 10px 0 12px;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.legal-body li + li {
+  margin-top: 6px;
+}
+
+.legal-body a {
+  color: var(--ice);
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-note {
+  margin-top: 30px;
+  padding: 16px 18px;
+  border: 1px solid var(--line-soft);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--steel);
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+  transition: color 0.4s var(--ease);
+}
+
+.legal-back:hover {
+  color: var(--ice-light);
+}
+
+@media (max-width: 600px) {
+  .hero-actions {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .hero-cta {
+    width: 100%;
+  }
+
+  .hero-lead {
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .hero-meta {
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .hero-meta-line {
+    display: none;
+  }
+
+  .footer-legal-note {
+    margin-left: 0;
   }
 }
