@@ -424,7 +424,7 @@ body.lume .watch-night {
   position: absolute;
   left: 50%;
   top: 0;
-  width: min(1150px, 115vw);
+  width: min(1150px, 100%);
   height: min(760px, 82vh);
   transform: translateX(-50%);
   pointer-events: none;
@@ -1411,6 +1411,7 @@ body.lume .contacts-link:hover {
 .dial-crop {
   position: relative;
   aspect-ratio: 1 / 1;
+  overflow-x: clip;
 }
 
 .dial-crop::before {
@@ -2291,41 +2292,11 @@ body.lume .form-status {
   justify-self: end;
 }
 
-.specs-photo-frame {
-  position: relative;
-  padding: clamp(16px, 2vw, 26px);
-  border: 1px solid var(--line-soft);
-  background:
-    radial-gradient(
-      ellipse at 50% 32%,
-      rgba(159, 195, 204, 0.14),
-      rgba(159, 195, 204, 0.03) 55%,
-      transparent 74%
-    ),
-    rgba(159, 195, 204, 0.012);
-  overflow: hidden;
-}
-
-.specs-photo-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.05),
-    transparent 38%
-  );
-}
-
 .specs-photo img {
-  position: relative;
-  z-index: 1;
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 30px 44px rgba(0, 0, 0, 0.6));
-  will-change: transform;
+  filter: drop-shadow(0 30px 54px rgba(0, 0, 0, 0.65));
 }
 
 .specs-photo-caption {
@@ -2533,5 +2504,64 @@ body.lume .form-status {
   .video-toggle {
     padding: 10px 14px;
     font-size: 10px;
+  }
+}
+
+/* ============================================================
+   v5 — hero slogan, mechanical second hand, clean specs photo
+   ============================================================ */
+
+.hero-slogan {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  z-index: 4;
+  margin: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.hero-slogan-tilt {
+  display: block;
+  transform: rotate(-5deg);
+}
+
+.hero-slogan-text {
+  display: block;
+  font-family: var(--font-logo);
+  font-size: clamp(32px, 8vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 0.015em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(226, 242, 245, 0.62);
+  text-shadow: 0 14px 34px rgba(5, 7, 9, 0.45);
+  transition: -webkit-text-stroke-color 0.8s var(--ease);
+}
+
+body.lume .hero-slogan-text {
+  -webkit-text-stroke-color: var(--lume);
+  text-shadow: 0 0 26px rgba(138, 240, 255, 0.25);
+}
+
+/* Секундная стрелка: 21 600 пк/ч = 6 шагов в секунду */
+.dial-hand-second {
+  transition: transform 0.07s linear;
+}
+
+@media (max-width: 900px) {
+  .hero-slogan-text {
+    font-size: clamp(30px, 8.8vw, 96px);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-slogan {
+    top: 43%;
+  }
+
+  .hero-slogan-text {
+    font-size: clamp(26px, 9vw, 48px);
+    -webkit-text-stroke-width: 1px;
   }
 }

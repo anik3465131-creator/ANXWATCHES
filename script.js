@@ -207,8 +207,10 @@
     if (!hasDial) return;
 
     const ms = REDUCED ? 0 : now.getMilliseconds();
-    const seconds = now.getSeconds() + ms / 1000;
-    const minutes = now.getMinutes() + seconds / 60;
+    const smooth = now.getSeconds() + ms / 1000;
+    /* 21 600 полуколебаний/ч = 3 Гц = 6 шагов секундной стрелки в секунду */
+    const seconds = Math.floor(smooth * 6) / 6;
+    const minutes = now.getMinutes() + smooth / 60;
     const hours = (now.getHours() % 12) + minutes / 60;
 
     handHour.style.transform = "rotate(" + (hours * 30).toFixed(3) + "deg)";
@@ -489,6 +491,18 @@
     .from(".nav a", { opacity: 0, y: -8, duration: 0.6, stagger: 0.06 }, 0.3)
     .from(".hero-logo", { opacity: 0, letterSpacing: "0.3em", duration: 1.2 }, 0.2)
     .from(".hero-sub", { opacity: 0, y: 10, duration: 0.8 }, 0.7)
+    .fromTo(
+      ".hero-slogan",
+      { xPercent: -50, x: 150, opacity: 0 },
+      {
+        xPercent: -50,
+        x: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: "power3.out"
+      },
+      0.9
+    )
     .from(".watch-frame", { opacity: 0, duration: 1.2, ease: "power2.out" }, 0.5)
     .from(".lume-btn", { opacity: 0, scale: 0.7, duration: 0.6 }, 1.1)
     .from(".hero-meta", { opacity: 0, y: 10, duration: 0.8 }, 1.15);
@@ -543,42 +557,6 @@
   }
 
   /* ----------------------------------------------------------
-     Лёгкий 3D-наклон часов за курсором
-     ---------------------------------------------------------- */
-
-  if (watchFrame && FINE_POINTER) {
-    const hero = document.querySelector(".hero");
-
-    if (hero) {
-      gsap.set(watchFrame, {
-        transformPerspective: 1300,
-        transformOrigin: "50% 58%"
-      });
-
-      const tiltX = gsap.quickTo(watchFrame, "rotationX", {
-        duration: 0.9,
-        ease: "power3"
-      });
-      const tiltY = gsap.quickTo(watchFrame, "rotationY", {
-        duration: 0.9,
-        ease: "power3"
-      });
-
-      hero.addEventListener("mousemove", function (event) {
-        const nx = event.clientX / window.innerWidth - 0.5;
-        const ny = event.clientY / window.innerHeight - 0.5;
-        tiltY(nx * 7);
-        tiltX(-ny * 5);
-      });
-
-      hero.addEventListener("mouseleave", function () {
-        tiltX(0);
-        tiltY(0);
-      });
-    }
-  }
-
-  /* ----------------------------------------------------------
      Скролл-анимации
      ---------------------------------------------------------- */
 
@@ -613,12 +591,8 @@
       })
       .to(".hero-logo", { y: -118, scale: 0.94, opacity: 0.08, ease: "none" }, 0)
       .to(".hero-sub", { y: -82, opacity: 0.12, ease: "none" }, 0)
-      .to(
-        ".watch-stage",
-        { y: 132, scale: 0.86, rotation: 2.2, opacity: 0.9, ease: "none" },
-        0
-      )
-      .to(".watch-frame", { y: -28, rotation: -3.4, ease: "none" }, 0)
+      .to(".watch-stage", { y: 96, opacity: 0.9, ease: "none" }, 0)
+      .to(".hero-slogan", { y: -74, opacity: 0.06, ease: "none" }, 0)
       .to(".lume-btn", { y: 58, opacity: 0, ease: "none" }, 0)
       .to(".hero-meta", { y: 44, opacity: 0, ease: "none" }, 0);
 

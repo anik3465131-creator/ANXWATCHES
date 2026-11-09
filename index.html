@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Megrim&family=Inter:wght@200;300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -43,6 +43,12 @@
             <span class="watch-glare-dot"></span>
           </span>
         </div>
+
+        <p class="hero-slogan" aria-hidden="true">
+          <span class="hero-slogan-tilt">
+            <span class="hero-slogan-text">ЛЁД · СВЕТ · ХОД</span>
+          </span>
+        </p>
 
         <button class="lume-btn magnetic" type="button" aria-pressed="false" aria-label="Включить подсветку LUME">
           <span class="lume-dot" aria-hidden="true"></span>
@@ -96,7 +102,7 @@
         <video
           class="watch-video"
           src="Videos/anx-watch.mp4?v=1"
-          poster="images/video-poster.jpg"
+          poster="images/video-poster.jpg?v=3"
           muted
           loop
           playsinline
@@ -277,16 +283,14 @@
         </div>
 
         <figure class="specs-photo reveal-up">
-          <div class="specs-photo-frame">
-            <img
-              src="images/watch-secondary.webp"
-              alt="ANX WATCHES — вид спереди: корпус, браслет и циферблат Crystal Titanium"
-              width="1000"
-              height="1548"
-              loading="lazy"
-              decoding="async"
-            >
-          </div>
+          <img
+            src="images/watch-secondary.png?v=5"
+            alt="ANX WATCHES — вид спереди: корпус, браслет и циферблат Crystal Titanium"
+            width="1000"
+            height="1548"
+            loading="lazy"
+            decoding="async"
+          >
           <figcaption class="specs-photo-caption">Вид спереди · 20 нумерованных экземпляров</figcaption>
         </figure>
       </div>
@@ -458,6 +462,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-<script src="script.js?v=4" defer></script>
+<script src="script.js?v=5" defer></script>
 </body>
 </html>
